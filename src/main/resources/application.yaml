@@ -1,0 +1,21 @@
+# AZURE Cloud Storage Configuration
+azure:
+  storage:
+    connection-string: ${AZURE_STORAGE_CONNECTION_STRING}
+    container-name: ${AZURE_STORAGE_CONTAINER_NAME}
+
+# Mongodb connection properties
+spring:
+  data:
+    mongodb:
+      uri: ${MONGODB_CONNECTION_URI}
+
+  # File Upload Configuration
+  servlet:
+    multipart:
+      max-file-size: 1GB
+      max-request-size: 1GB
+
+
+
+
