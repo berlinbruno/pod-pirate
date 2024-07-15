@@ -6,7 +6,7 @@ name: Build and deploy JAR app to Azure Web App - Podcast-Application-Backend
 on:
   push:
     branches:
-      - master
+      - backend
   workflow_dispatch:
 
 jobs:
