@@ -3,7 +3,7 @@ name: Example Workflow
 on:
   push:
     branches:
-      - master # Add the branch you want the action to run on
+      - backend # Add the branch you want the action to run on
   pull_request:
     branches:
       - master  # Add the branch you want the action to run on
