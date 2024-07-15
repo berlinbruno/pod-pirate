@@ -39,6 +39,11 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
+      
+    env:
+      MONGODB_CONNECTION_URI: ${{ vars.MONGODB_CONNECTION_URI }}
+      AZURE_STORAGE_CONNECTION_STRING: ${{ vars.AZURE_STORAGE_CONNECTION_STRING }}
+      AZURE_STORAGE_CONTAINER_NAME: ${{ vars.AZURE_STORAGE_CONTAINER_NAME }}
   
     steps:
       - name: Download artifact from build job
