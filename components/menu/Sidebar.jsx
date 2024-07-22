@@ -1,27 +1,23 @@
 "use client";
 import SidebarMenu, {
-  SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSeperator,
 } from "@/components/menu/SidebarMenu";
-import { deleteCookie } from "@/utils/cookies";
 
 import {
   HomeIcon,
   LogOutIcon,
   LucidePodcast,
-  MicIcon,
   MonitorIcon,
   User2Icon,
 } from "lucide-react";
 
-const Sidebar = ({ userid }) => {
-  const newEpisodeUrl = "/user/" + userid + "/new-episode";
-  const homeUrl = "/user/" + userid + "/home";
-  const accountUrl = "/user/" + userid + "/account";
-  const channelUrl = "/user/" + userid + "/";
+const Sidebar = () => {
+  const newEpisodeUrl = "/user/new-episode";
+  const homeUrl = "/user/home";
+  const accountUrl = "/user/account";
+  const channelUrl = "/user/";
   const logoutUrl = "/logout";
-
 
   return (
     <SidebarMenu>
@@ -63,7 +59,6 @@ const Sidebar = ({ userid }) => {
         active={true}
         alert={false}
       />
-
     </SidebarMenu>
   );
 };

@@ -8,7 +8,10 @@ export const metadata = {
 };
 
 export default async function EpisodePage({ params }) {
-  const episode = await getEpisodeById(params.userid, params.episodeid);
+  const cookieStore = cookies();
+  const userId = cookieStore.get("userId");
+
+  const episode = await getEpisodeById(userId.value, params.episodeId);
 
   return (
     <section className=" container mx-auto">

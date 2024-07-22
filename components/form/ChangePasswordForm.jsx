@@ -1,11 +1,11 @@
 "use client";
-import React, { useState } from "react";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import { ResetIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 const ChangePasswordForm = () => {
   const [formData, setFormData] = useState({
@@ -64,7 +64,7 @@ const ChangePasswordForm = () => {
   return (
     <form className=" flex flex-col gap-2" onSubmit={handleSubmit}>
       <h1 className="title place-self-center">Change Password</h1>
-      <Label htmlFor="email">UserName</Label>
+      <Label htmlFor="email">Email</Label>
       <Input
         type="email"
         name="email"

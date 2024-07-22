@@ -1,5 +1,5 @@
 {
-  "name": "podcast",
+  "name": "pod-pirate",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -34,7 +34,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
-    "shadcn-ui": "^0.8.0",
+    "shadcn-ui": "^0.2.3",
     "sharp": "^0.33.4",
     "sonner": "^1.4.2",
     "tailwind-merge": "^2.2.1",

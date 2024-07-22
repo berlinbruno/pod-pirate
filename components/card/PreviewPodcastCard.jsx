@@ -25,7 +25,7 @@ const PreviewPodcastCard = ({ user }) => {
           </AspectRatio>
         </CardHeader>
 
-        <CardHeader className="flex flex-col gap-2 w-full justify-between overflow-hidden z-50">
+        <CardHeader className="flex flex-col gap-2 w-full justify-between overflow-hidden z-10">
           <article>
             <CardTitle>{title}</CardTitle>
             <CardDescription className="line-clamp-6 hidden sm:block">

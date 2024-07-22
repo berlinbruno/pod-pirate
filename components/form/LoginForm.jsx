@@ -2,10 +2,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
-import Link from "next/link";
-import { toast } from "sonner";
 import { setAccessTokenCookie } from "@/utils/cookies";
+import Link from "next/link";
+import { useState } from "react";
+import { toast } from "sonner";
 import { Card, CardHeader } from "../ui/card";
 
 export default function LoginForm() {
@@ -41,7 +41,7 @@ export default function LoginForm() {
         if (role == "ADMIN") {
           window.location.assign(`/admin`);
         } else {
-          window.location.assign(`/user/${id}`);
+          window.location.assign(`/user`);
         }
       } else {
         const { status, error } = await res.json();
@@ -68,7 +68,7 @@ export default function LoginForm() {
           onSubmit={handleSubmit}
           className=" flex flex-col justify-center gap-2"
         >
-          <Label htmlFor="email">UserName</Label>
+          <Label htmlFor="email">Email</Label>
           <Input
             type="text"
             name="email"

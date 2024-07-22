@@ -1,13 +1,13 @@
 "use client";
-import React, { useState } from "react";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { deleteCookie } from "@/utils/cookies";
 import { ResetIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
-import { deleteCookie } from "@/utils/cookies";
+import { useState } from "react";
 import { toast } from "sonner";
 import PopupMenu from "../menu/PopupMenu";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 const DeleteAccountForm = () => {
   const [formData, setFormData] = useState({
@@ -69,7 +69,7 @@ const DeleteAccountForm = () => {
   return (
     <form className=" flex flex-col gap-2">
       <h1 className="title place-self-center">Delete Account</h1>
-      <Label htmlFor="email">UserName</Label>
+      <Label htmlFor="email">Email</Label>
       <Input
         type="email"
         name="email"

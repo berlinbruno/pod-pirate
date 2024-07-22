@@ -23,7 +23,7 @@ const Header = async () => {
   const userData = await getUserData();
 
   return (
-    <header className=" sticky top-0 z-20 border border-b-2 bg-accent shadow-md  py-2">
+    <header className=" sticky top-0 z-50 border border-b-2 bg-accent shadow-md  py-2">
       <div className=" container mx-auto flex w-full justify-between items-center">
         <Link href="/" aria-label="home">
           <Image

@@ -7,7 +7,7 @@ export default function manifest() {
     start_url: "/",
     display: "standalone",
     background_color: "#0f1024",
-    theme_color: "#6d28d9",
+    theme_color: "#3d5a80",
     id: "/",
     orientation: "portrait",
     icons: [
@@ -480,6 +480,44 @@ export default function manifest() {
         sizes: "360x798",
         type: "image/png",
         label: "Mobile - Default Form Factor",
+      },
+    ],
+    shortcuts: [
+      {
+        name: "Home",
+        short_name: "Home",
+        description: "Explore a variety of podcasts",
+        url: "/user/home",
+        icons: [
+          {
+            src: "/icons/home-96.png",
+            sizes: "96x96",
+          },
+        ],
+      },
+      {
+        name: "My Podcast",
+        short_name: "Podcast",
+        description: "View your collection of podcast episodes",
+        url: "/user",
+        icons: [
+          {
+            src: "/icons/profile-96.png",
+            sizes: "96x96",
+          },
+        ],
+      },
+      {
+        name: "New Episode",
+        short_name: "New Episode",
+        description: "Add and publish a new podcast episode",
+        url: "/user/new-episode",
+        icons: [
+          {
+            src: "/icons/upload-96.png",
+            sizes: "96x96",
+          },
+        ],
       },
     ],
     lang: "en",

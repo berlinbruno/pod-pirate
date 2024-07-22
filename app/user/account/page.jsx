@@ -10,8 +10,12 @@ export const metadata = {
   title: "User Settings",
 };
 
-export default async function UserAccountPage({ params }) {
-  const user = await getUserData(params.userid);
+export default async function UserAccountPage( ) {
+
+  const cookieStore = cookies();
+  const userId = cookieStore.get("userId");
+  
+  const user = await getUserData(userId.value);
   return (
     <section className=" container mx-auto">
       <Suspense fallback={<Loading />}>
@@ -26,7 +30,7 @@ export default async function UserAccountPage({ params }) {
   );
 }
 
-async function getUserData(userid) {
+async function getUserData(userId) {
   return new Promise((resolve, reject) => {
     const cookieStore = cookies();
     const jwtToken = cookieStore.get("accessToken");
@@ -41,7 +45,7 @@ async function getUserData(userid) {
     };
 
     fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/get/userdata/${userid}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/get/userdata/${userId}`,
       requestOptions,
       { next: { revalidate: 60 } }
     )

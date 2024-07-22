@@ -6,9 +6,11 @@ import { Separator } from "@/components/ui/separator";
 import { cookies } from "next/headers";
 import { Suspense } from "react";
 
+export async function generateMetadata() {
+  const cookieStore = cookies();
+  const userId = cookieStore.get("userId");
 
-export async function generateMetadata({ params }) {
-  const podcast = await getPodcastByUserId(params.userid);
+  const podcast = await getPodcastByUserId(userId.value);
 
   return {
     title: podcast.authorName,
@@ -16,10 +18,12 @@ export async function generateMetadata({ params }) {
   };
 }
 
+export default async function UserDashboardPage() {
+  const cookieStore = cookies();
+  const userId = cookieStore.get("userId");
 
-export default async function UserDashboardPage({ params }) {
-  const podcast = await getPodcastByUserId(params.userid);
-  const episodes = await getAllEpisodesById(params.userid);
+  const podcast = await getPodcastByUserId(userId.value);
+  const episodes = await getAllEpisodesById(userId.value);
   return (
     <section className=" container mx-auto mt-2">
       <Suspense fallback={<Loading />}>
@@ -48,7 +52,7 @@ const getPodcastByUserId = async (userId) => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/get/userdata/${userId}`,
       requestOptions,
-      { next: { revalidate: 0 } }
+      { next: { revalidate: 60 } }
     );
 
     if (response.status === 204) {
