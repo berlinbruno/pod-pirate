@@ -17,7 +17,6 @@ import {
 const Header = async () => {
   const cookieStore = cookies();
   const user = cookieStore.get("accessToken");
-  const userId = cookieStore.get("userId");
   const role = cookieStore.get("role");
 
   const userData = await getUserData();
@@ -66,13 +65,13 @@ const Header = async () => {
               <DropdownMenuGroup>
                 <DropdownMenuLabel>Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <Link href={`/user/${userId.value}/home`}>
+                <Link href={"/user/home"}>
                   <DropdownMenuItem>Home</DropdownMenuItem>
                 </Link>
-                <Link href={`/user/${userId.value}/new-episode`}>
+                <Link href={"/user/new-episode"}>
                   <DropdownMenuItem>New Episode</DropdownMenuItem>
                 </Link>
-                <Link href={`/user/${userId.value}`}>
+                <Link href={"/user"}>
                   <DropdownMenuItem>My Podcast</DropdownMenuItem>
                 </Link>
               </DropdownMenuGroup>
@@ -81,13 +80,13 @@ const Header = async () => {
               <DropdownMenuGroup>
                 <DropdownMenuLabel>Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <Link href={`/admin`}>
+                <Link href={"/admin"}>
                   <DropdownMenuItem>Dashboard</DropdownMenuItem>
                 </Link>
-                <Link href={`/admin/locked`}>
+                <Link href={"/admin/locked"}>
                   <DropdownMenuItem>Locked</DropdownMenuItem>
                 </Link>
-                <Link href={`/admin/account`}>
+                <Link href={"/admin/account"}>
                   <DropdownMenuItem>Account</DropdownMenuItem>
                 </Link>
               </DropdownMenuGroup>

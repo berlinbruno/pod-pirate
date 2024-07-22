@@ -6,7 +6,7 @@ export default async function UserLayout({ children, params }) {
   const userId = cookieStore.get("userId");
 
   return (
-    <main className=" flex ">
+    <main className=" flex container ">
       <Sidebar userId={userId.value} />
       {children}
     </main>

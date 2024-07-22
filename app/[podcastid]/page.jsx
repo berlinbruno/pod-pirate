@@ -16,6 +16,8 @@ export async function generateMetadata({ params }) {
 export default async function PodcastPage({ params }) {
   const podcast = await getPodcastById(params.podcastid);
 
+ 
+
   return (
     <section className=" container mx-auto mt-2">
       <Suspense fallback={<Loading />}>

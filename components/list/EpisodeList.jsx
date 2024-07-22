@@ -1,7 +1,10 @@
 "use client";
+import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import AudioPlayer from "../audio/AudioPlayer";
 import EpisodeCard from "../card/EpisodeCard";
+import { Button } from "../ui/button";
 
 const EpisodeList = ({ podcastId }) => {
   const [selectedEpisode, setSelectedEpisode] = useState(null);
@@ -56,9 +59,24 @@ const EpisodeList = ({ podcastId }) => {
     }
   };
 
+  const router = useRouter();
+
   return (
     <section>
-      <h1 className="title">EPISODES</h1>
+      <div className=" flex gap-2 items-center">
+        <Button
+          variant="outline"
+          type="button"
+          className="rounded-full"
+          onClick={() => {
+            router.back();
+          }}
+        >
+          <ArrowLeft />
+          Back
+        </Button>
+        <h1 className="title">EPISODES</h1>
+      </div>
       {episodes?.map((episode) => (
         <div key={episode?.episodeId} className="cursor-pointer my-1">
           <div onClick={() => handleEpisodeClick(episode)} className="relative">

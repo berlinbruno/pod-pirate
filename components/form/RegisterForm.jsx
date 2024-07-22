@@ -1,14 +1,14 @@
 "use client";
-import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { categories } from "@/utils/data";
 import { ResetIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 import { Card, CardHeader } from "../ui/card";
-import { Textarea } from "../ui/textarea";
 import {
   Select,
   SelectContent,
@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { categories } from "@/utils/data";
+import { Textarea } from "../ui/textarea";
 
 export default function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -98,7 +98,7 @@ export default function RegisterForm() {
             required
             onChange={handleChange}
           />
-          <Label htmlFor="email">Username</Label>
+          <Label htmlFor="email">Email</Label>
           <Input
             type="email"
             name="email"
