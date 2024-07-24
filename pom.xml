@@ -8,11 +8,11 @@
         <version>3.3.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.kgdatasolutions</groupId>
-    <artifactId>podcast-backend</artifactId>
+    <groupId>dev.berlinbruno</groupId>
+    <artifactId>pod-pirate-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>podcast-backend</name>
-    <description>Demo project for Spring Boot</description>
+    <name>pod-pirate-backend</name>
+    <description>This project is a podcast platform developed using Java, Spring Boot, MongoDB, Azure, and Next.js. It offers a comprehensive solution for managing user accounts, uploading episodes, and providing a seamless listening experience. Robust account security is ensured through JWT authentication.</description>
     <properties>
         <java.version>17</java.version>
         <spring-cloud-azure.version>5.13.0</spring-cloud-azure.version>
