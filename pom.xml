@@ -8,7 +8,7 @@
         <version>3.3.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.kgdatasolutions</groupId>
+    <groupId>dev.berlinbruno</groupId>
     <artifactId>podcast-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>podcast-backend</name>
