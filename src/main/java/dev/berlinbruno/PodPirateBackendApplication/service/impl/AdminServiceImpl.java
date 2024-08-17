@@ -6,7 +6,7 @@ import dev.berlinbruno.PodPirateBackendApplication.dto.admin.AdminResponse;
 import dev.berlinbruno.PodPirateBackendApplication.mapper.AdminMapper;
 import dev.berlinbruno.PodPirateBackendApplication.repository.AppUserRepository;
 import dev.berlinbruno.PodPirateBackendApplication.service.AdminService;
-import dev.berlinbruno.PodPirateBackendApplication.service.AzureBlobService;
+import dev.berlinbruno.PodPirateBackendApplication.service.CloudBlobService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService {
 
-    private final AzureBlobService azureBlobService;
+    private final CloudBlobService cloudBlobService;
     private final AppUserRepository appUserRepository;
     private final AdminMapper adminMapper;
     private final MongoTemplate mongoTemplate;
@@ -180,18 +180,18 @@ public class AdminServiceImpl implements AdminService {
             if (user.getEpisodes() != null && !user.getEpisodes().isEmpty()) {
                 for (Episode episode : user.getEpisodes()) {
                     // Delete episode file from GCS
-                    azureBlobService.deleteFileFromAzureBlob(episode.getAudioUrl());
+                    cloudBlobService.deleteFileFromAzureBlob(episode.getAudioUrl());
                 }
             }
 
             // Check if the user has a profile URL
             if (user.getProfileUrl() != null) {
-                azureBlobService.deleteFileFromAzureBlob(user.getProfileUrl());
+                cloudBlobService.deleteFileFromAzureBlob(user.getProfileUrl());
             }
 
             // Check if the user has a banner URL
             if (user.getBannerUrl() != null) {
-                azureBlobService.deleteFileFromAzureBlob(user.getBannerUrl());
+                cloudBlobService.deleteFileFromAzureBlob(user.getBannerUrl());
             }
 
             // Delete the user

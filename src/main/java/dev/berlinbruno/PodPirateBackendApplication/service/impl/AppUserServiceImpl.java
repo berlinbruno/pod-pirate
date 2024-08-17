@@ -4,7 +4,7 @@ package dev.berlinbruno.PodPirateBackendApplication.service.impl;
 import dev.berlinbruno.PodPirateBackendApplication.model.AppUser;
 import dev.berlinbruno.PodPirateBackendApplication.repository.AppUserRepository;
 import dev.berlinbruno.PodPirateBackendApplication.service.AppUserService;
-import dev.berlinbruno.PodPirateBackendApplication.service.AzureBlobService;
+import dev.berlinbruno.PodPirateBackendApplication.service.CloudBlobService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ import java.util.Optional;
 public class AppUserServiceImpl implements AppUserService {
 
     private final AppUserRepository appUserRepository;
-    private final AzureBlobService azureBlobService;
+    private final CloudBlobService cloudBlobService;
 
 
     @Override
@@ -53,9 +53,9 @@ public class AppUserServiceImpl implements AppUserService {
                     MultipartFile image = imageFile.get();
                     String profileUrl = appUser.getProfileUrl();
                     if (profileUrl == null || profileUrl.isEmpty()) {
-                        appUser.setProfileUrl(azureBlobService.saveFileToAzureBlob(userId, "images", image));
+                        appUser.setProfileUrl(cloudBlobService.saveFileToAzureBlob(userId, "images", image));
                     } else {
-                        appUser.setProfileUrl(azureBlobService.updateFileInAzureBlob(profileUrl, image));
+                        appUser.setProfileUrl(cloudBlobService.updateFileInAzureBlob(profileUrl, image));
                     }
                 }
 
@@ -64,9 +64,9 @@ public class AppUserServiceImpl implements AppUserService {
                     MultipartFile image = bannerFile.get();
                     String bannerUrl = appUser.getBannerUrl();
                     if (bannerUrl == null || bannerUrl.isEmpty()) {
-                        appUser.setBannerUrl(azureBlobService.saveFileToAzureBlob(userId, "images", image));
+                        appUser.setBannerUrl(cloudBlobService.saveFileToAzureBlob(userId, "images", image));
                     } else {
-                        appUser.setBannerUrl(azureBlobService.updateFileInAzureBlob(bannerUrl, image));
+                        appUser.setBannerUrl(cloudBlobService.updateFileInAzureBlob(bannerUrl, image));
                     }
                 }
 
@@ -96,7 +96,7 @@ public class AppUserServiceImpl implements AppUserService {
                 if (profileUrl == null || profileUrl.isEmpty()) {
                     return ResponseEntity.notFound().build();
                 } else {
-                    azureBlobService.deleteFileFromAzureBlob(appUser.getProfileUrl());
+                    cloudBlobService.deleteFileFromAzureBlob(appUser.getProfileUrl());
                     appUser.setProfileUrl(null);
                     appUserRepository.save(appUser);
                     return ResponseEntity.ok("Profile image removed successfully");
@@ -121,7 +121,7 @@ public class AppUserServiceImpl implements AppUserService {
                 if (bannerUrl == null || bannerUrl.isEmpty()) {
                     return ResponseEntity.notFound().build();
                 } else {
-                    azureBlobService.deleteFileFromAzureBlob(appUser.getBannerUrl());
+                    cloudBlobService.deleteFileFromAzureBlob(appUser.getBannerUrl());
                     appUser.setBannerUrl(null);
                     appUserRepository.save(appUser);
                     return ResponseEntity.ok("Banner image removed successfully");

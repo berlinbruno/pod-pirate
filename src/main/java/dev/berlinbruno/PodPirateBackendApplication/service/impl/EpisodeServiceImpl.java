@@ -5,7 +5,7 @@ import dev.berlinbruno.PodPirateBackendApplication.model.Episode;
 import dev.berlinbruno.PodPirateBackendApplication.dto.episode.EpisodeResponse;
 import dev.berlinbruno.PodPirateBackendApplication.mapper.EpisodeMapper;
 import dev.berlinbruno.PodPirateBackendApplication.repository.AppUserRepository;
-import dev.berlinbruno.PodPirateBackendApplication.service.AzureBlobService;
+import dev.berlinbruno.PodPirateBackendApplication.service.CloudBlobService;
 import dev.berlinbruno.PodPirateBackendApplication.service.EpisodeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ import java.util.stream.IntStream;
 @Slf4j
 public class EpisodeServiceImpl implements EpisodeService {
 
-    private final AzureBlobService azureBlobService;
+    private final CloudBlobService cloudBlobService;
     private final EpisodeMapper episodeMapper;
     private final AppUserRepository appUserRepository;
 
@@ -41,7 +41,7 @@ public class EpisodeServiceImpl implements EpisodeService {
                     Episode episode = episodes.get(episodeIndex); // Retrieve episode by index
 
 //                  Generate signed URLs for image and audio files
-                    String signedAudioUrl = episode.getAudioUrl() != null ? azureBlobService.generateSignedUrlForDownload(episode.getAudioUrl()) : null;
+                    String signedAudioUrl = episode.getAudioUrl() != null ? cloudBlobService.generateSignedUrlForDownload(episode.getAudioUrl()) : null;
 
                     // Create a new EpisodeResponse object
                     EpisodeResponse response = new EpisodeResponse();
@@ -86,7 +86,7 @@ public class EpisodeServiceImpl implements EpisodeService {
                 String audioUrl = episode.getAudioUrl();
 
                 if (audioUrl != null) {
-                    String signedAudioUrl = azureBlobService.generateSignedUrlForDownload(audioUrl);
+                    String signedAudioUrl = cloudBlobService.generateSignedUrlForDownload(audioUrl);
                     episode.setAudioUrl(signedAudioUrl);
                 }
             }
@@ -173,7 +173,7 @@ public class EpisodeServiceImpl implements EpisodeService {
         try {
             Optional<AppUser> optionalAppUser = appUserRepository.findById(userId);
             if (optionalAppUser.isPresent()) {
-                String uploadUrl = azureBlobService.generateSignedUrlForUpload(userId, "audios", fileName);
+                String uploadUrl = cloudBlobService.generateSignedUrlForUpload(userId, "audios", fileName);
                 return ResponseEntity.ok(uploadUrl);
             } else {
                 return ResponseEntity.notFound().build();
@@ -188,7 +188,7 @@ public class EpisodeServiceImpl implements EpisodeService {
         try {
             Optional<AppUser> optionalAppUser = appUserRepository.findById(userId);
             if (optionalAppUser.isPresent()) {
-                String updateUrl = azureBlobService.generateSignedUrlForUpdate(optionalAppUser.get().getEpisodes().get(episodeIndex).getAudioUrl());
+                String updateUrl = cloudBlobService.generateSignedUrlForUpdate(optionalAppUser.get().getEpisodes().get(episodeIndex).getAudioUrl());
                 return ResponseEntity.ok(updateUrl);
             } else {
                 return ResponseEntity.notFound().build();
@@ -212,7 +212,7 @@ public class EpisodeServiceImpl implements EpisodeService {
                     // Delete episode files
                     if (episodeToDelete.getAudioUrl() != null && !episodeToDelete.getAudioUrl().isEmpty()) {
                         System.out.println(episodeToDelete.getAudioUrl());
-                        azureBlobService.deleteFileFromAzureBlob(episodeToDelete.getAudioUrl());
+                        cloudBlobService.deleteFileFromAzureBlob(episodeToDelete.getAudioUrl());
                     }
 
                     // Remove the episode from the list

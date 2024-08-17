@@ -2,15 +2,12 @@ package dev.berlinbruno.PodPirateBackendApplication.mapper;
 
 import dev.berlinbruno.PodPirateBackendApplication.model.AppUser;
 import dev.berlinbruno.PodPirateBackendApplication.dto.admin.AdminResponse;
-import dev.berlinbruno.PodPirateBackendApplication.service.AzureBlobService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class AdminMapper {
-
-    private final AzureBlobService azureBlobService;
 
     public AdminResponse mapToAdminResponse(AppUser appUser) {
         AdminResponse adminResponse = new AdminResponse();

@@ -2,13 +2,13 @@ package dev.berlinbruno.PodPirateBackendApplication.service.impl;
 
 import dev.berlinbruno.PodPirateBackendApplication.model.AppUser;
 import dev.berlinbruno.PodPirateBackendApplication.model.Episode;
+import dev.berlinbruno.PodPirateBackendApplication.service.CloudBlobService;
 import dev.berlinbruno.PodPirateBackendApplication.utils.JWTUtils;
 import dev.berlinbruno.PodPirateBackendApplication.dto.auth.AuthReqResDto;
 import dev.berlinbruno.PodPirateBackendApplication.dto.auth.Auth_Role;
 import dev.berlinbruno.PodPirateBackendApplication.dto.auth.Auth_Status;
 import dev.berlinbruno.PodPirateBackendApplication.repository.AppUserRepository;
 import dev.berlinbruno.PodPirateBackendApplication.service.AuthService;
-import dev.berlinbruno.PodPirateBackendApplication.service.AzureBlobService;
 import dev.berlinbruno.PodPirateBackendApplication.service.EpisodeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,8 +32,7 @@ public class AuthServiceImpl implements AuthService {
     private final JWTUtils jwtUtils;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private final AzureBlobService azureBlobService;
-    private final EpisodeService episodeService;
+    private final CloudBlobService cloudBlobService;
 
     @Override
     public ResponseEntity<?> signUp(AuthReqResDto registrationRequest) {
@@ -135,18 +134,18 @@ public class AuthServiceImpl implements AuthService {
             if (user.getEpisodes() != null && !user.getEpisodes().isEmpty()) {
                 for (Episode episode : user.getEpisodes()) {
                     // Delete episode file from GCS
-                    azureBlobService.deleteFileFromAzureBlob(episode.getAudioUrl());
+                    cloudBlobService.deleteFileFromAzureBlob(episode.getAudioUrl());
                 }
             }
 
             // Check if the user has a profile URL
             if (user.getProfileUrl() != null) {
-                azureBlobService.deleteFileFromAzureBlob(user.getProfileUrl());
+                cloudBlobService.deleteFileFromAzureBlob(user.getProfileUrl());
             }
 
             // Check if the user has a banner URL
             if (user.getBannerUrl() != null) {
-                azureBlobService.deleteFileFromAzureBlob(user.getBannerUrl());
+                cloudBlobService.deleteFileFromAzureBlob(user.getBannerUrl());
             }
 
             // Delete the user
