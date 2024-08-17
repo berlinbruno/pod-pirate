@@ -1,7 +1,6 @@
 package dev.berlinbruno.PodPirateBackendApplication.controller;
 
-
-import dev.berlinbruno.PodPirateBackendApplication.service.AzureBlobService;
+import dev.berlinbruno.PodPirateBackendApplication.service.CloudBlobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -18,17 +17,17 @@ import java.rmi.RemoteException;
 
 @RestController
 @RequestMapping("/cloud")
-public class GcsController {
+public class CloudController {
 
     @Autowired
-    private AzureBlobService azureBlobService;
+    private CloudBlobService cloudBlobService;
 
     @GetMapping("/{userId}/{type}/{id}")
     public ResponseEntity<?> getSignedUrl(@PathVariable String userId, @PathVariable String type,
                                           @PathVariable String id) {
         String filePath = String.format("%s/%s/%s", userId, type, id);
         try {
-            String result = azureBlobService.generateSignedUrlForDownload(filePath);
+            String result = cloudBlobService.generateSignedUrlForDownload(filePath);
             return ResponseEntity.ok(result);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -38,7 +37,7 @@ public class GcsController {
     @GetMapping("/signed-url/{userId}/{type}/{contentType}")
     public ResponseEntity<?> getSignedUrlForUpload(@PathVariable String userId, @PathVariable String type) {
         try {
-            String result = azureBlobService.generateSignedUrlForUpload(userId, azureBlobService.generateUniqueImageName(), type);
+            String result = cloudBlobService.generateSignedUrlForUpload(userId, cloudBlobService.generateUniqueImageName(), type);
             return ResponseEntity.ok(result);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -50,7 +49,7 @@ public class GcsController {
                                                             @PathVariable String id) {
         String filePath = String.format("%s/%s/%s", userId, type, id);
         try {
-            InputStream inputStream = azureBlobService.downloadFromAzureBlob(filePath);
+            InputStream inputStream = cloudBlobService.downloadFromAzureBlob(filePath);
             if (inputStream != null) {
                 InputStreamResource resource = new InputStreamResource(inputStream);
 
@@ -71,7 +70,7 @@ public class GcsController {
     @GetMapping("/signed-url/{filePath}")
     public ResponseEntity<String> getSignedUrl(@PathVariable String filePath) throws IOException {
         try {
-            String result = azureBlobService.generateSignedUrlForDownload(filePath);
+            String result = cloudBlobService.generateSignedUrlForDownload(filePath);
             return ResponseEntity.ok(result);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -81,7 +80,7 @@ public class GcsController {
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteFileFromGcs(@RequestParam String filePath) throws IOException {
         try {
-            azureBlobService.deleteFileFromAzureBlob(filePath);
+            cloudBlobService.deleteFileFromAzureBlob(filePath);
             return null;
         } catch (IOException e) {
             throw new RemoteException(e.getMessage());
@@ -90,7 +89,7 @@ public class GcsController {
 
     @PostMapping("/post")
     public ResponseEntity<?> postFile(@RequestParam MultipartFile multipartFile) throws IOException {
-        azureBlobService.updateFileInAzureBlob("podcast",multipartFile);
+        cloudBlobService.updateFileInAzureBlob("podcast",multipartFile);
         return null;
     }
 

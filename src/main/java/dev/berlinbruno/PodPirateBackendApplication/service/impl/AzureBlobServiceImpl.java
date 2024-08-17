@@ -6,7 +6,7 @@ import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.blob.sas.BlobSasPermission;
 import com.azure.storage.blob.sas.BlobServiceSasSignatureValues;
-import dev.berlinbruno.PodPirateBackendApplication.service.AzureBlobService;
+import dev.berlinbruno.PodPirateBackendApplication.service.CloudBlobService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class AzureBlobServiceImpl implements AzureBlobService {
+public class AzureBlobServiceImpl implements CloudBlobService {
 
     private static final Logger logger = LoggerFactory.getLogger(AzureBlobServiceImpl.class);
 
