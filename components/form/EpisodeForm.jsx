@@ -115,7 +115,7 @@ const EpisodeForm = ({ userId }) => {
 
       if (episodeCreationResponse.ok) {
         const result = await episodeCreationResponse.text();
-        window.location.href = `/user/${userId}`;
+        window.location.href = `/user`;
         toast(result);
         console.info(result);
       } else {
