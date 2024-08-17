@@ -8,7 +8,7 @@ azure:
 spring:
   data:
     mongodb:
-      uri: ${MONGODB_CONNECTION_URI}
+      uri: ${MONGODB_URI}
 
   # File Upload Configuration
   servlet:
@@ -16,6 +16,11 @@ spring:
       max-file-size: 1GB
       max-request-size: 1GB
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 
 

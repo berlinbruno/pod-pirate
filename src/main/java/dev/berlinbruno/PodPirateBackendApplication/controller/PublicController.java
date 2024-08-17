@@ -1,6 +1,5 @@
 package dev.berlinbruno.PodPirateBackendApplication.controller;
 
-import dev.berlinbruno.PodPirateBackendApplication.service.AppUserService;
 import dev.berlinbruno.PodPirateBackendApplication.service.EpisodeService;
 import dev.berlinbruno.PodPirateBackendApplication.service.PodcastService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class PublicController {
 
-    private final AppUserService appUserService;
     private final EpisodeService episodeService;
     private final PodcastService podcastService;
 
