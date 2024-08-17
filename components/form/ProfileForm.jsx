@@ -175,8 +175,8 @@ const ProfileForm = ({ user }) => {
   };
   return (
     <form className=" flex flex-col gap-2" onSubmit={handleSubmit}>
-      <h1 className="title place-self-center">Profile Details</h1>
-      <Label htmlFor="name">Name</Label>
+      <h1 className="title place-self-center">Podcast Details</h1>
+      <Label htmlFor="name">Author</Label>
       <Input
         type="text"
         name="name"

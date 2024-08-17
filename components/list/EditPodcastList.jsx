@@ -4,8 +4,8 @@ import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 
 const EditPodcastList = ({ podcast }) => {
-  const newEpisodeUrl = `/user/${podcast?.podcastId}/new-episode`;
-  const editPodcastUrl = `/user/${podcast?.podcastId}/account`;
+  const newEpisodeUrl = `/user/new-episode`;
+  const editPodcastUrl = `/user/account`;
 
   return (
     <article className="flex flex-col gap-2">
