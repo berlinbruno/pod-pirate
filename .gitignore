@@ -36,4 +36,4 @@ yarn-error.log*
 next-env.d.ts
 
 # service worker
-/public/*.js
+/public/.js
