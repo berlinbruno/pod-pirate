@@ -19,9 +19,9 @@ export const viewport = {
     { media: "(prefers-color-scheme: dark)", color: "#3d5a80" },
   ],
 };
-
+const baserUrl = process.env.NEXT_PUBLIC_BASE_URL
 export const metadata = {
-  metadataBase: new URL("https://podpirate.netlify.app"),
+  metadataBase: new URL(baserUrl),
   title: {
     default: APP_DEFAULT_TITLE,
     template: APP_TITLE_TEMPLATE,
@@ -54,7 +54,7 @@ export const metadata = {
     description: APP_DESCRIPTION,
   },
   authors: "Berlin Bruno",
-  manifest: "https://podpirate.netlify.app/manifest.js",
+  manifest: `${baserUrl}/manifest.js`,
 };
 
 export default async function RootLayout({ children }) {
@@ -66,7 +66,7 @@ export default async function RootLayout({ children }) {
           sizes="180x180"
           href="/apple-touch-icon.png"
         />
-        <link rel="canonical" href="https://podpirate.netlify.app/" />
+        <link rel="canonical" href={baserUrl} />
       </head>
       <body className={`${inter.className} select-none`}>
         <ThemeProvider

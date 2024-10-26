@@ -1,10 +1,11 @@
 export default function robots() {
+  const baserUrl = process.env.NEXT_PUBLIC_BASE_URL
   return {
     rules: {
       userAgent: "*",
       allow: "/",
       disallow: "/admin/",
     },
-    sitemap: "https://podpirate.netlify.app/sitemap.xml",
+    sitemap: `${baserUrl}/sitemap.xml`,
   };
 }

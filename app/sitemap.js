@@ -1,31 +1,32 @@
 export default function sitemap() {
+  const baserUrl = process.env.NEXT_PUBLIC_BASE_URL
   return [
     {
-      url: "https://podpirate.netlify.app/",
+      url: `${baserUrl}`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 1,
     },
     {
-      url: "https://podpirate.netlify.app/user",
+      url: `${baserUrl}/user`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: "https://podpirate.netlify.app/login",
+      url: `${baserUrl}/login`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: "https://podpirate.netlify.app/logout",
+      url: `${baserUrl}/logout`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: "https://podpirate.netlify.app/register",
+      url: `${baserUrl}/register`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
