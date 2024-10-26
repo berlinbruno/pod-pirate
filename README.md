@@ -19,7 +19,7 @@ This project is a podcast platform developed using Java, Spring Boot, MongoDB, A
 
 ## 🚀 Demo
 
-[podpirate.netlify.app](https://podpirate.netlify.app)
+[Pod Pirate](https://podpirate.berlinbruno.dev/)
 
 ## License
 
