@@ -29,3 +29,5 @@ replay_pid*
 
 /pod-pirate-frontend/
 /pod-pirate-backend/
+
+/pod-pirate-frontend/public/.js
