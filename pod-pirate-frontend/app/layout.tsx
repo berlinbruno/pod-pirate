@@ -7,6 +7,7 @@ import { AudioPlayerProvider } from "@/components/provider/audio-player-provider
 import Header from "@/components/navigation/Header";
 import Template from "./template";
 import { Toaster } from "@/components/ui/sonner";
+import Disclaimer from "@/components/layout/Disclaimer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -90,6 +91,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <AudioPlayerProvider>
+              <Disclaimer />
               <Header />
               <Template>{children}</Template>
               <Toaster richColors={true} />

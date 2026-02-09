@@ -73,36 +73,9 @@ export default function AudioPlayer({
         </div>
       </div>
 
-      {/* Volume and Auto-play Section */}
-      <div className="grid grid-cols-3 gap-4">
-        {/* Volume Control */}
-        <div className="flex max-w-56 items-center gap-3">
-          <Button onClick={audioPlayer.toggleMute} size="icon" variant="ghost" className="shrink-0">
-            {audioPlayer.isMuted ? (
-              <VolumeXIcon className="h-4 w-4" />
-            ) : audioPlayer.volume < 0.5 ? (
-              <Volume1Icon className="h-4 w-4" />
-            ) : (
-              <Volume2Icon className="h-4 w-4" />
-            )}
-          </Button>
-          <div className="flex-1">
-            <Slider
-              value={[audioPlayer.isMuted ? 0 : audioPlayer.volume]}
-              max={1}
-              step={0.01}
-              onValueChange={(value: number[]) => audioPlayer.setVolume(value[0])}
-              className="cursor-pointer"
-            />
-          </div>
-          <span className="text-muted-foreground min-w-10 text-right text-xs font-medium">
-            {Math.round((audioPlayer.isMuted ? 0 : audioPlayer.volume) * 100)}%
-          </span>
-        </div>
-
-        {/* Controls Section */}
-        <div className="flex items-center justify-center gap-2">
-          <Button
+      {/* Controls Section */}
+      <div className="flex items-center justify-center gap-2">
+        <Button
             onClick={onPrevious}
             size="icon"
             variant="outline"
@@ -126,11 +99,38 @@ export default function AudioPlayer({
             className="h-9 w-9"
           >
             <SkipForwardIcon className="h-4 w-4" />
+        </Button>
+      </div>
+
+      {/* Volume and Auto-play Section */}
+      <div className="flex items-center justify-between gap-8">
+        {/* Volume Control */}
+        <div className="flex w-56 items-center gap-3">
+          <Button onClick={audioPlayer.toggleMute} size="icon" variant="ghost" className="shrink-0">
+            {audioPlayer.isMuted ? (
+              <VolumeXIcon className="h-4 w-4" />
+            ) : audioPlayer.volume < 0.5 ? (
+              <Volume1Icon className="h-4 w-4" />
+            ) : (
+              <Volume2Icon className="h-4 w-4" />
+            )}
           </Button>
+          <div className="flex-1">
+            <Slider
+              value={[audioPlayer.isMuted ? 0 : audioPlayer.volume]}
+              max={1}
+              step={0.01}
+              onValueChange={(value: number[]) => audioPlayer.setVolume(value[0])}
+              className="cursor-pointer"
+            />
+          </div>
+          <span className="text-muted-foreground min-w-10 text-right text-xs font-medium">
+            {Math.round((audioPlayer.isMuted ? 0 : audioPlayer.volume) * 100)}%
+          </span>
         </div>
 
         {/* Auto-play Control */}
-        <div className="flex items-center justify-end gap-3">
+        <div className="flex items-center gap-3">
           <span className="text-muted-foreground text-xs font-medium">Auto-play</span>
           <Switch checked={autoPlayNext} onCheckedChange={onAutoPlayChange} />
         </div>
