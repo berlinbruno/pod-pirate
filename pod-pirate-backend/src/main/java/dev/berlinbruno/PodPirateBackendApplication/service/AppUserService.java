@@ -33,7 +33,7 @@ public interface AppUserService {
     /**
      * Generates a pre-signed URL for uploading user profile image.
      */
-    ImageUploadResponse generateProfileImageUploadUrl(String email, ImageExtension extension);
+    ImageUploadResponse generateProfileImageUploadUrl(String userId, ImageExtension extension);
 
     /**
      * Permanently deletes a user account using verification token.

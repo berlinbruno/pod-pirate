@@ -169,6 +169,7 @@ public class MeController {
         UserProfileResponse profile = appUserService.getProfileByEmail(email);
         ImageUploadResponse response =
                 appUserService.generateProfileImageUploadUrl(profile.getUserId(), request.getExtension());
+        log.info(response.getUploadUrl());
         return ResponseEntity.ok(response);
     }
 

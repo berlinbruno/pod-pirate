@@ -41,8 +41,8 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public ImageUploadResponse generateProfileImageUploadUrl(String email, ImageExtension extension) {
-        AppUser appUser = lookupService.getByEmail(email);
+    public ImageUploadResponse generateProfileImageUploadUrl(String userId, ImageExtension extension) {
+        AppUser appUser = lookupService.getById(userId);
         String blobPath = buildProfileImageBlobPath(appUser.getId(), extension);
         String uploadUrl = cloudBlobService.generateSignedUrlForUpload(blobPath);
 
