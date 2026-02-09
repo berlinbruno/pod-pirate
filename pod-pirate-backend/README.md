@@ -100,7 +100,7 @@
    # MongoDB
    MONGODB_URI=mongodb://localhost:27017/podpirate
    # Or MongoDB Atlas:
-   # MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/podpirate
+   # MONGODB_URI=MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/podpirate
 
    # Azure Storage
    AZURE_STORAGE_CONNECTION_STRING=DefaultEndpointsProtocol=https;AccountName=...
