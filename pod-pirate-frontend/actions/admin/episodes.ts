@@ -4,7 +4,7 @@ import { auth } from "@/lib/utils";
 
 export async function handleAdminDeleteEpisode(podcastId: string, episodeId: string) {
   const session = await auth();
-  const token = session?.user.accessToken;
+  const token = session?.user?.accessToken;
   try {
     const res = await fetch(
       `${process.env.NEXT_BACKEND_URL}/api/admin/podcasts/${podcastId}/episodes/${episodeId}`,
