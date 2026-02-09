@@ -5,6 +5,9 @@ import { auth } from "@/lib/utils";
 export async function handleLockUser(userId: string) {
   const session = await auth();
   const token = session?.user.accessToken;
+  if (!token) {
+    throw new Error("Unauthorized");
+  }
   try {
     const res = await fetch(`${process.env.NEXT_BACKEND_URL}/api/admin/users/${userId}/lock`, {
       method: "PATCH",
@@ -34,6 +37,9 @@ export async function handleLockUser(userId: string) {
 export async function handleUnlockUser(userId: string) {
   const session = await auth();
   const token = session?.user.accessToken;
+  if (!token) {
+    throw new Error("Unauthorized");
+  }
   try {
     const res = await fetch(`${process.env.NEXT_BACKEND_URL}/api/admin/users/${userId}/unlock`, {
       method: "PATCH",
@@ -63,6 +69,9 @@ export async function handleUnlockUser(userId: string) {
 export async function handleDeleteUser(userId: string) {
   const session = await auth();
   const token = session?.user.accessToken;
+  if (!token) {
+    throw new Error("Unauthorized");
+  }
   try {
     const res = await fetch(`${process.env.NEXT_BACKEND_URL}/api/admin/users/${userId}`, {
       method: "DELETE",
