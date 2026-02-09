@@ -1,0 +1,18 @@
+export const categories = {
+  arts: "Arts",
+  business: "Business",
+  comedy: "Comedy",
+  education: "Education",
+  food_drink: "Food & Drink",
+  health_fitness: "Health & Fitness",
+  history: "History",
+  news_politics: "News & Politics",
+  science: "Science",
+  society_culture: "Society & Culture",
+  technology: "Technology",
+  travel_tourism: "Travel & Tourism",
+  true_crime: "True Crime",
+  sports: "Sports",
+  fiction: "Fiction",
+  personal_journals: "Personal Journals",
+} as const;

@@ -1,0 +1,74 @@
+# AZURE Cloud Storage Configuration
+azure:
+  storage:
+    connection-string: ${AZURE_STORAGE_CONNECTION_STRING}
+    container-name: ${AZURE_STORAGE_CONTAINER_NAME}
+    read-time: 1 # in days
+    write-time: 30 # in minutes
+
+
+spring:
+  # Mongodb Configuration
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+  # File Upload Configuration
+  servlet:
+    multipart:
+      max-file-size: 1GB
+      max-request-size: 1GB
+    # Email Service Configuration
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${SMTP_USER}
+    password: ${SMTP_PASSWORD}
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            trust: smtp.gmail.com
+# Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+
+# CORS Configuration
+cors:
+  allowed-origins:
+    - ${ALLOWED_ORIGINS}
+  allowed-methods:
+    - "GET"
+    - "POST"
+    - "PUT"
+    - "DELETE"
+  allowed-headers:
+    - "Authorization"
+    - "Content-Type"
+
+# Frontend Application Configuration
+app:
+  frontend:
+    base-url: ${FRONTEND_BASE_URL}
+    email-verification-path: "auth/verify-email?token="
+    password-reset-path: "auth/reset-password?token="
+    account-deleted-path: "auth/request-deletion?token="
+  admin:
+    email: ${ADMIN_EMAIL}
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET}
+  access-token-expiration: 1 # in hours
+  refresh-token-expiration: 2 # in hours
+  verification-token-expiration: 10 # 10 minutes for email verification, password reset and account deletion tokens
+
+
+
+

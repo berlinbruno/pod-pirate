@@ -1,0 +1,78 @@
+# Test Configuration
+# This file provides test values for all required properties
+
+# AZURE Cloud Storage Configuration (Mock values for testing)
+azure:
+  storage:
+    connection-string: "DefaultEndpointsProtocol=https;AccountName=testaccount;AccountKey=dGVzdGtleQ==;EndpointSuffix=core.windows.net"
+    container-name: "test-container"
+    read-time: 1
+    write-time: 30
+
+spring:
+  # Use embedded MongoDB for testing or Testcontainers
+  # For local testing, ensure MongoDB is running on localhost:27017
+  # Or configure Testcontainers in your test classes
+  data:
+    mongodb:
+      uri: "mongodb://localhost:27017/pod-pirate-test"
+      auto-index-creation: true
+
+  # File Upload Configuration
+  servlet:
+    multipart:
+      max-file-size: 1GB
+      max-request-size: 1GB
+
+  # Email Service Configuration (Mock values for testing)
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: "test@example.com"
+    password: "test-password"
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            trust: smtp.gmail.com
+
+# Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+
+# CORS Configuration
+cors:
+  allowed-origins:
+    - "http://localhost:3000"
+  allowed-methods:
+    - "GET"
+    - "POST"
+    - "PUT"
+    - "DELETE"
+  allowed-headers:
+    - "Authorization"
+    - "Content-Type"
+
+# Frontend Application Configuration
+app:
+  frontend:
+    base-url: "http://localhost:3000"
+    email-verification-path: "auth/verify-email?token="
+    password-reset-path: "auth/reset-password?token="
+    account-deleted-path: "auth/request-deletion?token="
+  admin:
+    email: "admin@test.com"
+
+# JWT Configuration (Valid Base64 encoded secret for testing)
+jwt:
+  secret: "dGVzdC1zZWNyZXQta2V5LWZvci1qd3QtdG9rZW4tdGVzdGluZy1wdXJwb3Nlcy1vbmx5LXRoaXMtaXMtYS12YWxpZC1iYXNlNjQtZW5jb2RlZC1zdHJpbmc="
+  access-token-expiration: 1
+  refresh-token-expiration: 2
+  verification-token-expiration: 10
