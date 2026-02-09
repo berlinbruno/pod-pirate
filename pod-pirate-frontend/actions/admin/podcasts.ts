@@ -5,11 +5,6 @@ import { auth } from "@/lib/utils";
 export async function handleAdminDeletePodcast(podcastId: string) {
   const session = await auth();
   const token = session?.user.accessToken;
-
-  if (!token) {
-    throw new Error("Unauthorized");
-  }
-
   try {
     const res = await fetch(`${process.env.NEXT_BACKEND_URL}/api/admin/podcasts/${podcastId}`, {
       method: "DELETE",
@@ -39,11 +34,6 @@ export async function handleAdminDeletePodcast(podcastId: string) {
 export async function handleFlagPodcast(podcastId: string) {
   const session = await auth();
   const token = session?.user.accessToken;
-
-  if (!token) {
-    throw new Error("Unauthorized");
-  }
-
   try {
     const res = await fetch(
       `${process.env.NEXT_BACKEND_URL}/api/admin/podcasts/${podcastId}/flag`,
@@ -76,9 +66,6 @@ export async function handleFlagPodcast(podcastId: string) {
 export async function handleUnflagPodcast(podcastId: string) {
   const session = await auth();
   const token = session?.user.accessToken;
-  if (!token) {
-    throw new Error("Unauthorized");
-  }
   try {
     const res = await fetch(
       `${process.env.NEXT_BACKEND_URL}/api/admin/podcasts/${podcastId}/unflag`,
