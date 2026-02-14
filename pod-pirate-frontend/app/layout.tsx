@@ -8,6 +8,13 @@ import Header from "@/components/navigation/Header";
 import Template from "./template";
 import { Toaster } from "@/components/ui/sonner";
 import Disclaimer from "@/components/layout/Disclaimer";
+import {
+  APP_NAME,
+  APP_DEFAULT_TITLE,
+  APP_TITLE_TEMPLATE,
+  APP_DESCRIPTION,
+  THEME_COLOR,
+} from "@/lib/constants";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -21,16 +28,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const APP_NAME = "Pod Pirate";
-const APP_DEFAULT_TITLE = "Pod Pirate";
-const APP_TITLE_TEMPLATE = "%s";
-const APP_DESCRIPTION =
-  "PodPirate is your ultimate destination for discovering, streaming, and managing your favorite podcasts. Set sail on an audio adventure with our intuitive platform, where you can explore a vast ocean of content, from the latest episodes to timeless classics.";
-
 export const viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#3d5a80" },
-    { media: "(prefers-color-scheme: dark)", color: "#3d5a80" },
+    { media: "(prefers-color-scheme: light)", color: THEME_COLOR },
+    { media: "(prefers-color-scheme: dark)", color: THEME_COLOR },
   ],
 };
 const baserUrl = process.env.NEXT_BACKEND_URL;

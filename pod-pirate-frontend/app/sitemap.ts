@@ -1,8 +1,9 @@
 import { getCreatorIds, getPodcastIds } from "@/lib/api";
 import type { MetadataRoute } from "next";
+import { BASE_URL } from "@/lib/constants";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://podpirate.com";
+  const baseUrl = BASE_URL;
 
   // Fetch dynamic IDs
   const [podcastIds, creatorIds] = await Promise.all([getPodcastIds(), getCreatorIds()]);
@@ -14,18 +15,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 1,
-    },
-    {
-      url: `${baseUrl}/podcasts`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/creators`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.8,
     },
     {
       url: `${baseUrl}/auth/login`,
@@ -55,7 +44,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Dynamic podcast pages
   const podcastPages: MetadataRoute.Sitemap = podcastIds.map((id) => ({
-    url: `${baseUrl}/podcasts?podcastId=${id}`,
+    url: `${baseUrl}/podcasts?podcastId=${encodeURIComponent(id)}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.8,
@@ -63,7 +52,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Dynamic creator pages
   const creatorPages: MetadataRoute.Sitemap = creatorIds.map((id) => ({
-    url: `${baseUrl}/creators?creatorId=${id}`,
+    url: `${baseUrl}/creators?creatorId=${encodeURIComponent(id)}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.7,

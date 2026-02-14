@@ -1,24 +1,24 @@
-import { getCurrentUser } from "@/lib/api/me/profile";
-import { auth } from "@/lib/utils";
 import { MetadataRoute } from "next";
+import {
+  APP_NAME,
+  APP_SHORT_NAME,
+  APP_DESCRIPTION,
+  BACKGROUND_COLOR,
+  THEME_COLOR,
+} from "@/lib/constants";
 
-export const revalidate = 60
+export const revalidate = 60;
 
 export default async function manifest(): Promise<MetadataRoute.Manifest> {
-  const session = await auth();
-  const currentUser = await getCurrentUser(session?.user.accessToken);
-  const isAdmin = currentUser?.roles?.includes("ADMIN") || false;
-  const isUser = !!session && !!currentUser && !isAdmin;
 
   return {
-    name: "Pod Pirate",
-    short_name: "PodPirate",
-    description:
-      "PodPirate is your ultimate destination for discovering, streaming, and managing your favorite podcasts. Set sail on an audio adventure with our intuitive platform, where you can explore a vast ocean of content, from the latest episodes to timeless classics.",
+    name: APP_NAME,
+    short_name: APP_SHORT_NAME,
+    description: APP_DESCRIPTION,
     start_url: "/",
     display: "standalone",
-    background_color: "#0f1024",
-    theme_color: "#3d5a80",
+    background_color: BACKGROUND_COLOR,
+    theme_color: THEME_COLOR,
     id: "/",
     orientation: "portrait",
     icons: [
@@ -509,119 +509,60 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
         form_factor: "wide",
       },
     ],
-    shortcuts: isAdmin
-      ? [
-          // ===== ADMIN =====
+    shortcuts: [
+      {
+        name: "User Dashboard",
+        short_name: "Dashboard",
+        description: "View your podcast performance and recent activity",
+        url: "/dashboard",
+        icons: [
           {
-            name: "Admin Overview",
-            short_name: "Admin",
-            description: "Monitor platform activity and system metrics",
-            url: "/admin",
-            icons: [
-              {
-                src: "/icons/dashboard.png",
-                sizes: "192x192",
-                type: "image/png",
-              },
-            ],
+            src: "/icons/dashboard.png",
+            sizes: "192x192",
+            type: "image/png",
           },
+        ],
+      },
+      {
+        name: "My Podcasts",
+        short_name: "Podcasts",
+        description: "Manage, edit, and publish your podcasts",
+        url: "/dashboard/podcasts",
+        icons: [
           {
-            name: "Moderate Podcasts",
-            short_name: "Moderate",
-            description: "Review, approve, or manage published podcasts",
-            url: "/admin/podcasts",
-            icons: [
-              {
-                src: "/icons/podcast.png",
-                sizes: "192x192",
-                type: "image/png",
-              },
-            ],
+            src: "/icons/podcast.png",
+            sizes: "192x192",
+            type: "image/png",
           },
+        ],
+      },
+      {
+        name: "Create Podcast",
+        short_name: "Create",
+        description: "Launch a new podcast and configure details",
+        url: "/dashboard/podcasts/new",
+        icons: [
           {
-            name: "Manage Users",
-            short_name: "Users",
-            description: "View and manage registered platform users",
-            url: "/admin/users",
-            icons: [
-              {
-                src: "/icons/user.png",
-                sizes: "192x192",
-                type: "image/png",
-              },
-            ],
+            src: "/icons/new.png",
+            sizes: "192x192",
+            type: "image/png",
           },
+        ],
+      },
+      {
+        name: "Account Settings",
+        short_name: "Account",
+        description: "Update your profile and account preferences",
+        url: "/dashboard/profile",
+        icons: [
           {
-            name: "Admin Settings",
-            short_name: "Settings",
-            description: "Configure administrative and platform settings",
-            url: "/admin/profile",
-            icons: [
-              {
-                src: "/icons/settings.png",
-                sizes: "192x192",
-                type: "image/png",
-              },
-            ],
+            src: "/icons/settings.png",
+            sizes: "192x192",
+            type: "image/png",
           },
-        ]
-      : isUser
-        ? [
-            // ===== USER =====
-            {
-              name: "User Dashboard",
-              short_name: "Dashboard",
-              description: "View your podcast performance and recent activity",
-              url: "/dashboard",
-              icons: [
-                {
-                  src: "/icons/dashboard.png",
-                  sizes: "192x192",
-                  type: "image/png",
-                },
-              ],
-            },
-            {
-              name: "My Podcasts",
-              short_name: "Podcasts",
-              description: "Manage, edit, and publish your podcasts",
-              url: "/dashboard/podcasts",
-              icons: [
-                {
-                  src: "/icons/podcast.png",
-                  sizes: "192x192",
-                  type: "image/png",
-                },
-              ],
-            },
-            {
-              name: "Create Podcast",
-              short_name: "Create",
-              description: "Launch a new podcast and configure details",
-              url: "/dashboard/podcasts/new",
-              icons: [
-                {
-                  src: "/icons/new.png",
-                  sizes: "192x192",
-                  type: "image/png",
-                },
-              ],
-            },
-            {
-              name: "Account Settings",
-              short_name: "Account",
-              description: "Update your profile and account preferences",
-              url: "/dashboard/profile",
-              icons: [
-                {
-                  src: "/icons/settings.png",
-                  sizes: "192x192",
-                  type: "image/png",
-                },
-              ],
-            },
-          ]
-        : [],
+        ],
+      },
+    ],
     lang: "en",
     dir: "auto",
     display_override: ["fullscreen", "minimal-ui", "standalone"],
