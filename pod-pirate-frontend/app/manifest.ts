@@ -1,4 +1,4 @@
-export default function manifest() {
+export default async function manifest() {
   return {
     name: "Pod Pirate",
     short_name: "PodPirate",
@@ -496,6 +496,60 @@ export default function manifest() {
         sizes: "1280x720",
         type: "image/png",
         form_factor: "wide",
+      },
+    ],
+    shortcuts: [
+      {
+        name: "User Dashboard",
+        short_name: "Dashboard",
+        description: "View your podcast performance and recent activity",
+        url: "/dashboard",
+        icons: [
+          {
+            src: "/icons/dashboard.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+        ],
+      },
+      {
+        name: "My Podcasts",
+        short_name: "Podcasts",
+        description: "Manage, edit, and publish your podcasts",
+        url: "/dashboard/podcasts",
+        icons: [
+          {
+            src: "/icons/podcast.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+        ],
+      },
+      {
+        name: "Create Podcast",
+        short_name: "Create",
+        description: "Launch a new podcast and configure details",
+        url: "/dashboard/podcasts/new",
+        icons: [
+          {
+            src: "/icons/new.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+        ],
+      },
+      {
+        name: "Account Settings",
+        short_name: "Account",
+        description: "Update your profile and account preferences",
+        url: "/dashboard/profile",
+        icons: [
+          {
+            src: "/icons/settings.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+        ],
       },
     ],
     lang: "en",
