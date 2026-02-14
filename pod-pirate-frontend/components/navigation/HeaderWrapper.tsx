@@ -38,7 +38,7 @@ export default function HeaderWrapper({ user }: HeaderWrapperProps) {
   return (
     <header
       className={cn(
-        "bg-accent sticky top-0 z-50 mb-3 border-b md:mb-4",
+        "bg-accent sticky top-0 z-50 mb-3 border-b md:mb-4 px-4",
         "transition-shadow duration-200 ease-out",
         compact ? "shadow-sm" : "shadow-md",
       )}
