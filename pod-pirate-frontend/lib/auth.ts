@@ -8,6 +8,15 @@ import CredentialsProvider from "next-auth/providers/credentials";
  */
 async function refreshAccessToken(token: JWT): Promise<JWT> {
   try {
+    // Ensure refresh token exists
+    if (!token.refreshToken) {
+      console.error("No refresh token available");
+      return {
+        ...token,
+        error: "RefreshTokenExpired",
+      };
+    }
+
     const response = await fetch(`${process.env.NEXT_BACKEND_URL}/api/auth/refresh`, {
       method: "POST",
       headers: {
@@ -18,6 +27,18 @@ async function refreshAccessToken(token: JWT): Promise<JWT> {
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Token refresh failed:", response.status, errorText);
+      
+      // If token is expired or invalid, clear the session
+      if (response.status === 400 || response.status === 401) {
+        console.log("Refresh token expired or invalid, session will be cleared");
+        return {
+          ...token,
+          accessToken: undefined,
+          refreshToken: undefined,
+          error: "RefreshTokenExpired",
+        };
+      }
+      
       throw new Error("Failed to refresh token");
     }
 
@@ -28,6 +49,7 @@ async function refreshAccessToken(token: JWT): Promise<JWT> {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
       expiresAt: Date.now() + 14 * 60 * 1000, // 14 minutes
+      error: undefined,
     };
   } catch (error) {
     console.error("Error refreshing access token:", error);
@@ -124,8 +146,14 @@ export const authOptions: NextAuthOptions = {
         };
       }
 
+      // If refresh token has expired, return null to force re-login
+      if (token.error === "RefreshTokenExpired") {
+        console.log("Refresh token expired, clearing session");
+        return {} as JWT; // Return empty token to clear session
+      }
+
       // Check if token needs refresh (2 minutes before expiry)
-      const shouldRefresh = Date.now() > token.expiresAt - 2 * 60 * 1000;
+      const shouldRefresh = token.expiresAt && Date.now() > token.expiresAt - 2 * 60 * 1000;
 
       if (shouldRefresh) {
         return refreshAccessToken(token);
@@ -134,13 +162,19 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
+      // If token is empty or has expired refresh token, return null to clear session
+      if (!token.accessToken || !token.refreshToken || !token.id || !token.email || token.error === "RefreshTokenExpired") {
+        // Return a minimal session that will be treated as null/invalid
+        throw new Error("Session expired, please login again");
+      }
+
       // Map JWT token to session
       return {
         ...session,
         user: {
           id: token.id,
           email: token.email,
-          roles: token.roles,
+          roles: token.roles || [],
           userName: token.name || "",
           profileUrl: token.image || null,
           accessToken: token.accessToken,
