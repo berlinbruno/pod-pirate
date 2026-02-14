@@ -11,15 +11,13 @@ async function refreshAccessToken(token: JWT): Promise<JWT> {
     const response = await fetch(`${process.env.NEXT_BACKEND_URL}/api/auth/refresh`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         "Refresh-Token": token.refreshToken,
       },
-      body: JSON.stringify({
-        refreshToken: token.refreshToken,
-      }),
     });
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Token refresh failed:", response.status, errorText);
       throw new Error("Failed to refresh token");
     }
 

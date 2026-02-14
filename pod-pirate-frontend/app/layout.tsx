@@ -68,7 +68,6 @@ export const metadata: Metadata = {
     description: APP_DESCRIPTION,
   },
   authors: { name: "Berlin Bruno" },
-  manifest: `${baserUrl}/manifest.ts`,
 };
 
 export default function RootLayout({
@@ -79,7 +78,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="PodPirate" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon.png" />
         <link rel="canonical" href={baserUrl} />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
