@@ -1,9 +1,14 @@
+import { getCreatorIds, getPodcastIds } from "@/lib/api";
 import type { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://podpirate.com";
 
-  return [
+  // Fetch dynamic IDs
+  const [podcastIds, creatorIds] = await Promise.all([getPodcastIds(), getCreatorIds()]);
+
+  // Static pages
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: new Date(),
@@ -47,4 +52,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     },
   ];
+
+  // Dynamic podcast pages
+  const podcastPages: MetadataRoute.Sitemap = podcastIds.map((id) => ({
+    url: `${baseUrl}/podcasts?podcastId=${id}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
+  // Dynamic creator pages
+  const creatorPages: MetadataRoute.Sitemap = creatorIds.map((id) => ({
+    url: `${baseUrl}/creators?creatorId=${id}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...podcastPages, ...creatorPages];
 }

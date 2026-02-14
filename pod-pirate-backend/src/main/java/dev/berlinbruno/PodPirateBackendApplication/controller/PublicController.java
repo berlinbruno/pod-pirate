@@ -196,6 +196,57 @@ public class PublicController {
         return ResponseEntity.ok(episodeService.getPublishedEpisodeDetails(podcastId, episodeId));
     }
 
+    // ==================== DISCOVERY UTILITIES ====================
+
+    /**
+     * Retrieves all published podcast IDs.
+     *
+     * @return List of all published podcast IDs
+     */
+    @Operation(
+            summary = "Get all published podcast IDs",
+            description = "Retrieve a list of all published podcast IDs on the platform. " +
+                    "Useful for indexing, sitemaps, or bulk operations. " +
+                    "Only returns IDs of PUBLISHED podcasts. " +
+                    "No authentication required.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Successfully retrieved podcast IDs",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = List.class))
+                    ),
+                    @ApiResponse(responseCode = "500", description = "Internal server error")
+            }
+    )
+    @GetMapping("/podcasts/ids")
+    public ResponseEntity<List<String>> getAllPublishedPodcastIds() {
+        return ResponseEntity.ok(podcastService.getAllPublishedPodcastIds());
+    }
+
+    /**
+     * Retrieves all creator IDs who have published podcasts.
+     *
+     * @return List of unique creator user IDs with published podcasts
+     */
+    @Operation(
+            summary = "Get all creator IDs with published podcasts",
+            description = "Retrieve a list of all unique creator user IDs who have at least one published podcast. " +
+                    "Useful for discovering active content creators on the platform. " +
+                    "No authentication required.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Successfully retrieved creator IDs",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = List.class))
+                    ),
+                    @ApiResponse(responseCode = "500", description = "Internal server error")
+            }
+    )
+    @GetMapping("/creators/ids")
+    public ResponseEntity<List<String>> getAllCreatorIdsWithPublishedPodcasts() {
+        return ResponseEntity.ok(podcastService.getAllCreatorIdsWithPublishedPodcasts());
+    }
+
     // ==================== CREATOR PUBLIC PROFILES ====================
 
     /**

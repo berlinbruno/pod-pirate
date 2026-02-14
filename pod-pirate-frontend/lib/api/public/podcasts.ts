@@ -2,6 +2,19 @@ import type { PodcastPublicDetailResponse, PodcastPublicResponse } from "@/types
 
 const API_URL = process.env.NEXT_BACKEND_URL!;
 
+export async function getPodcastIds(): Promise<string[]> {
+  try {
+    const res = await fetch(`${API_URL}/api/public/podcasts/ids`, {
+      next: { revalidate: 3600 }, // Cache for 1 hour
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch (error) {
+    console.error("Failed to fetch podcast IDs:", error);
+    return [];
+  }
+}
+
 export async function getPodcastById(
   podcastId: string,
 ): Promise<PodcastPublicDetailResponse | null> {
