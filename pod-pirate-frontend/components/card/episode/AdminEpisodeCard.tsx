@@ -1,13 +1,13 @@
 "use client";
 import { convertSecondsToHMS, formatDate } from "@/utils/format";
 import { PlayIcon, CalendarCheck, Clock, RefreshCw, Hash, Calendar } from "lucide-react";
-import Image from "next/image";
 import { Card, CardDescription, CardTitle } from "../../ui/card";
 import { Separator } from "@/components/ui/separator";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { isValidUrl } from "@/utils/validation/urlValidator";
 import { EpisodeDetailResponse } from "@/types/api";
+import RefreshableImage from "@/components/image/RefreshableImage";
 
 interface AdminEpisodeCardProps {
   episode: EpisodeDetailResponse;
@@ -40,7 +40,7 @@ export default function AdminEpisodeCard({ episode, play, onPlayClick }: AdminEp
           <div className="aspect-square md:h-full">
             <AspectRatio ratio={1}>
               {hasImage ? (
-                <Image
+                <RefreshableImage
                   src={episode.coverUrl || ""}
                   alt={`Cover art for episode ${episode.title}`}
                   fill

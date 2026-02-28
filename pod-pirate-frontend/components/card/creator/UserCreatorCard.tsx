@@ -5,8 +5,8 @@ import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { getInitials, formatDate } from "@/utils/format";
 import { Separator } from "../../ui/separator";
 import { AspectRatio } from "../../ui/aspect-ratio";
-import Image from "next/image";
 import { isValidUrl } from "@/utils/validation/urlValidator";
+import RefreshableImage from "@/components/image/RefreshableImage";
 
 interface UserCreatorCardProps {
   user: UserProfileResponse | null;
@@ -26,7 +26,7 @@ export default function UserCreatorCard({ user }: UserCreatorCardProps) {
         <div className="size-48">
           <AspectRatio ratio={1}>
             {hasImage ? (
-              <Image
+              <RefreshableImage
                 src={user?.profileUrl || ""}
                 alt={`${user.username}'s profile picture`}
                 className="rounded-full object-cover transition-all duration-200"

@@ -1,3 +1,4 @@
+import RefreshableImage from "@/components/image/RefreshableImage";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -15,7 +16,6 @@ import {
   TagIcon,
   UserIcon,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 interface AdminPodcastCardProps {
@@ -35,7 +35,7 @@ export default function AdminPodcastCard({ podcast }: AdminPodcastCardProps) {
       <div className="bg-muted relative h-32 w-full overflow-hidden sm:h-40 md:h-48">
         {hasImage ? (
           <>
-            <Image
+            <RefreshableImage
               src={podcast.bannerUrl}
               alt={`Banner for podcast ${podcast.title}`}
               fill
@@ -59,7 +59,7 @@ export default function AdminPodcastCard({ podcast }: AdminPodcastCardProps) {
       {/* Cover Image */}
       <div className="relative px-4 pt-0 pb-0 md:px-6">
         <div className="relative -mt-22.75 h-32 w-32 sm:-mt-28.5 sm:h-40 sm:w-40 md:-mt-34.25 md:h-48 md:w-48">
-          <Image
+          <RefreshableImage
             src={podcast.coverUrl}
             alt={`Cover art for podcast ${podcast.title}`}
             fill

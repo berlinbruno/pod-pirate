@@ -16,7 +16,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Image from "next/image";
 import { ImageIcon, Loader2, Undo2 } from "lucide-react";
 import { Session } from "next-auth";
 import { categories } from "@/utils/data";
@@ -30,6 +29,7 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group";
+import RefreshableImage from "@/components/image/RefreshableImage";
 
 interface UpdatePodcastFormProps {
   podcast: PodcastDetailResponse;
@@ -290,7 +290,7 @@ export default function UpdatePodcastForm({ podcast }: UpdatePodcastFormProps) {
                   <div className="flex size-52 items-center justify-center lg:size-60">
                     <AspectRatio ratio={1 / 1}>
                       {coverPreview ? (
-                        <Image
+                        <RefreshableImage
                           src={coverPreview}
                           alt="Cover preview"
                           fill
@@ -321,7 +321,7 @@ export default function UpdatePodcastForm({ podcast }: UpdatePodcastFormProps) {
                   <div className="flex h-52 items-center justify-center lg:h-60">
                     <AspectRatio ratio={3 / 1}>
                       {bannerPreview ? (
-                        <Image
+                        <RefreshableImage
                           src={bannerPreview}
                           alt="Banner preview"
                           fill

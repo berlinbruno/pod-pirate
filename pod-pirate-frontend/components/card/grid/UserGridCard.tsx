@@ -1,6 +1,5 @@
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { UserIcon, MailIcon, CalendarIcon, ShieldIcon, Mic2, LogIn } from "lucide-react";
-import Image from "next/image";
 import { AdminUserResponse } from "@/types/api";
 import { formatDate, getInitials } from "@/utils/format";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -9,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { isValidUrl } from "@/utils/validation/urlValidator";
+import RefreshableImage from "@/components/image/RefreshableImage";
 
 interface UserGridCardProps {
   readonly user: AdminUserResponse;
@@ -32,7 +32,7 @@ export default function UserGridCard({ user }: UserGridCardProps) {
         <div className="bg-muted relative">
           <AspectRatio ratio={1}>
             {hasImage ? (
-              <Image
+              <RefreshableImage
                 src={user.profileUrl || "s"}
                 alt={`${user.username} profile`}
                 fill

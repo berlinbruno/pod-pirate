@@ -14,7 +14,6 @@ import {
 import type { EpisodeDetailResponse, UpdateEpisodeRequest } from "@/types/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
 import { ImageIcon, Music, Loader2, Undo2 } from "lucide-react";
 import { Session } from "next-auth";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -27,6 +26,7 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import RefreshableImage from "@/components/image/RefreshableImage";
 
 interface UpdateEpisodeFormProps {
   episode: EpisodeDetailResponse;
@@ -320,7 +320,7 @@ export default function UpdateEpisodeForm({ episode, podcastId }: UpdateEpisodeF
                   <div className="flex size-52 items-center justify-center lg:size-60">
                     <AspectRatio ratio={1 / 1}>
                       {imagePreview ? (
-                        <Image
+                        <RefreshableImage
                           src={imagePreview}
                           alt="Thumbnail preview"
                           fill

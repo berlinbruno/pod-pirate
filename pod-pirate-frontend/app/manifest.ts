@@ -9,8 +9,7 @@ import {
 
 export const revalidate = 60;
 
-export default async function manifest(): Promise<MetadataRoute.Manifest> {
-
+export default function manifest(): MetadataRoute.Manifest {
   return {
     name: APP_NAME,
     short_name: APP_SHORT_NAME,
@@ -507,60 +506,6 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
         sizes: "1280x720",
         type: "image/png",
         form_factor: "wide",
-      },
-    ],
-    shortcuts: [
-      {
-        name: "User Dashboard",
-        short_name: "Dashboard",
-        description: "View your podcast performance and recent activity",
-        url: "/dashboard",
-        icons: [
-          {
-            src: "/icons/dashboard.png",
-            sizes: "192x192",
-            type: "image/png",
-          },
-        ],
-      },
-      {
-        name: "My Podcasts",
-        short_name: "Podcasts",
-        description: "Manage, edit, and publish your podcasts",
-        url: "/dashboard/podcasts",
-        icons: [
-          {
-            src: "/icons/podcast.png",
-            sizes: "192x192",
-            type: "image/png",
-          },
-        ],
-      },
-      {
-        name: "Create Podcast",
-        short_name: "Create",
-        description: "Launch a new podcast and configure details",
-        url: "/dashboard/podcasts/new",
-        icons: [
-          {
-            src: "/icons/new.png",
-            sizes: "192x192",
-            type: "image/png",
-          },
-        ],
-      },
-      {
-        name: "Account Settings",
-        short_name: "Account",
-        description: "Update your profile and account preferences",
-        url: "/dashboard/profile",
-        icons: [
-          {
-            src: "/icons/settings.png",
-            sizes: "192x192",
-            type: "image/png",
-          },
-        ],
       },
     ],
     lang: "en",

@@ -3,10 +3,10 @@ import { EpisodePublicResponse } from "@/types/api";
 import { convertSecondsToHMS, formatDate } from "@/utils/format";
 import { CalendarCheck, Clock, PlayIcon } from "lucide-react";
 import { Card, CardTitle, CardDescription } from "@/components/ui/card";
-import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { isValidUrl } from "@/utils/validation/urlValidator";
+import RefreshableImage from "@/components/image/RefreshableImage";
 
 interface EpisodeCardProps {
   episode: EpisodePublicResponse;
@@ -40,7 +40,7 @@ export default function EpisodeCard({ episode, play, onPlayClick }: EpisodeCardP
           <div className="aspect-square md:h-full">
             <AspectRatio ratio={1}>
               {hasImage ? (
-                <Image
+                <RefreshableImage
                   src={episode.coverUrl || ""}
                   alt={`Cover art for episode ${episode.title}`}
                   fill
