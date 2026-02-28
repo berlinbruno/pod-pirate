@@ -21,4 +21,8 @@ public interface PodcastRepository extends MongoRepository<Podcast, String> {
     long countByUserId(String userId);
 
     long countByUserIdAndPodcastStatus(String userId, PodcastStatus podcastStatus);
+
+    List<Podcast> findAllIdsByPodcastStatus(PodcastStatus podcastStatus);
+
+    List<Podcast> findAllUserIdsByPodcastStatus(PodcastStatus podcastStatus);
 }

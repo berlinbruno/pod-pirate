@@ -3,8 +3,10 @@ azure:
   storage:
     connection-string: ${AZURE_STORAGE_CONNECTION_STRING}
     container-name: ${AZURE_STORAGE_CONTAINER_NAME}
-    read-time: 1 # in days
-    write-time: 30 # in minutes
+  signed-url:
+    expiry:
+      read: 30 # in days - long expiry to account for Next.js caching
+      write: 30 # in minutes
 
 
 spring:

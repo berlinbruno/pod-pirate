@@ -9,7 +9,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Image from "next/image";
 import { ImageIcon, Music, Undo2 } from "lucide-react";
 import { CreateEpisodeFormInputs, createEpisodeSchema } from "@/utils/validation/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,6 +28,7 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import RefreshableImage from "@/components/image/RefreshableImage";
 
 interface EpisodeFormProps {
   podcastId: string;
@@ -349,7 +349,7 @@ const EpisodeForm = ({ podcastId }: EpisodeFormProps) => {
                   <div className="flex size-52 items-center justify-center lg:size-60">
                     <AspectRatio ratio={1 / 1}>
                       {imagePreview ? (
-                        <Image
+                        <RefreshableImage
                           src={imagePreview}
                           alt="Thumbnail preview"
                           fill

@@ -1,13 +1,13 @@
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { PlayIcon, TagIcon, ListIcon, CalendarCheck, Radio } from "lucide-react";
-import Image from "next/image";
 import { PodcastDetailResponse } from "@/types/api";
 import { formatDate } from "@/utils/format";
 import { categories } from "@/utils/data";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Link from "next/link";
 import { StatusBadge } from "@/components/ui/status-badge";
+import RefreshableImage from "@/components/image/RefreshableImage";
 
 interface UserPodcastGridCardProps {
   podcast: PodcastDetailResponse;
@@ -27,7 +27,7 @@ export default function UserPodcastGridCard({ podcast }: UserPodcastGridCardProp
         {/* Cover */}
         <div className="bg-muted relative">
           <AspectRatio ratio={1}>
-            <Image
+            <RefreshableImage
               src={podcast.coverUrl}
               alt={`Cover art for podcast ${podcast.title}`}
               fill

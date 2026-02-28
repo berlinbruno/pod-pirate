@@ -1,5 +1,4 @@
 import { UserIcon, TagIcon, ListIcon, CalendarCheck, Radio } from "lucide-react";
-import Image from "next/image";
 import { PodcastPublicDetailResponse } from "@/types/api";
 import { Card, CardTitle, CardDescription } from "../../ui/card";
 import { formatDate } from "@/utils/format";
@@ -7,6 +6,7 @@ import { categories } from "@/utils/data";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { isValidUrl } from "@/utils/validation/urlValidator";
+import RefreshableImage from "@/components/image/RefreshableImage";
 
 interface PodcastCardProps {
   podcast: PodcastPublicDetailResponse;
@@ -28,7 +28,7 @@ export default function PodcastCard({ podcast }: PodcastCardProps) {
       <div className="bg-muted relative h-32 w-full overflow-hidden sm:h-40 md:h-48">
         {hasImage ? (
           <>
-            <Image
+            <RefreshableImage
               src={podcast.bannerUrl}
               alt={`Banner for podcast ${podcast.title}`}
               fill
@@ -52,7 +52,7 @@ export default function PodcastCard({ podcast }: PodcastCardProps) {
       {/* Cover Image */}
       <div className="relative px-4 pt-0 pb-0 md:px-6">
         <div className="sm:w-40md:-mt-34.25 relative -mt-22.75 h-32 w-32 sm:-mt-28.5 sm:h-40 md:h-48 md:w-48">
-          <Image
+          <RefreshableImage
             src={podcast.coverUrl}
             alt={`Cover art for podcast ${podcast.title}`}
             fill

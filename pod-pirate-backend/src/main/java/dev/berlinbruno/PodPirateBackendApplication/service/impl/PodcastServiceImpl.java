@@ -155,6 +155,23 @@ public class PodcastServiceImpl implements PodcastService {
         return podcasts.map(this::mapToPodcastPublicResponse);
     }
 
+    @Override
+    public List<String> getAllPublishedPodcastIds() {
+        List<Podcast> podcasts = podcastRepository.findAllIdsByPodcastStatus(PodcastStatus.PUBLISHED);
+        return podcasts.stream()
+                .map(Podcast::getId)
+                .toList();
+    }
+
+    @Override
+    public List<String> getAllCreatorIdsWithPublishedPodcasts() {
+        List<Podcast> podcasts = podcastRepository.findAllUserIdsByPodcastStatus(PodcastStatus.PUBLISHED);
+        return podcasts.stream()
+                .map(Podcast::getUserId)
+                .distinct()
+                .toList();
+    }
+
     // ==================== VALIDATION HELPERS ====================
 
     private void validatePodcastCanBePublished(Podcast podcast) {

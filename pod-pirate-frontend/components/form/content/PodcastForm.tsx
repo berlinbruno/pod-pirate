@@ -7,7 +7,6 @@ import {
 } from "@/actions/me/podcasts";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
 import { ImageIcon, Undo2 } from "lucide-react";
 import {
   Select,
@@ -34,6 +33,7 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import RefreshableImage from "@/components/image/RefreshableImage";
 
 const PodcastForm = () => {
   const router = useRouter();
@@ -312,7 +312,7 @@ const PodcastForm = () => {
                   <div className="flex size-52 items-center justify-center lg:size-60">
                     <AspectRatio ratio={1 / 1}>
                       {coverPreview ? (
-                        <Image
+                        <RefreshableImage
                           src={coverPreview || "/placeholder.svg"}
                           alt="Cover preview"
                           fill
@@ -350,7 +350,7 @@ const PodcastForm = () => {
                   <div className="flex h-52 items-center justify-center lg:h-60">
                     <AspectRatio ratio={3 / 1}>
                       {bannerPreview ? (
-                        <Image
+                        <RefreshableImage
                           src={bannerPreview || "/placeholder.svg"}
                           alt="Banner preview"
                           fill

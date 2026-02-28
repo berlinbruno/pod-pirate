@@ -20,6 +20,9 @@ export interface UseAudioPlayerReturn {
 
 interface UseAudioPlayerOptions {
   onEnded?: () => void;
+  onError?: () => void;
+  maxRetries?: number;
+  retryDelay?: number;
 }
 
 export function useAudioPlayer(options?: UseAudioPlayerOptions): UseAudioPlayerReturn {
@@ -30,6 +33,12 @@ export function useAudioPlayer(options?: UseAudioPlayerOptions): UseAudioPlayerR
   const [duration, setDuration] = useState(0);
   const [isSeeking, setIsSeeking] = useState(false);
   const [wasPlayingBeforeSeek, setWasPlayingBeforeSeek] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+  const [isRetrying, setIsRetrying] = useState(false);
+  const currentSourceRef = useRef<string | null>(null);
+
+  const maxRetries = options?.maxRetries ?? 2;
+  const retryDelay = options?.retryDelay ?? 1500;
 
   const [volume, setVolumeState] = useState(() => {
     if (typeof window !== "undefined") {
@@ -55,8 +64,11 @@ export function useAudioPlayer(options?: UseAudioPlayerOptions): UseAudioPlayerR
       }
 
       audio.src = src || "";
+      currentSourceRef.current = src;
       setCurrentTime(0);
       setDuration(0);
+      setRetryCount(0);
+      setIsRetrying(false);
 
       if (src) {
         audio.load();
@@ -193,11 +205,55 @@ export function useAudioPlayer(options?: UseAudioPlayerOptions): UseAudioPlayerR
     const handlePlay = () => setIsPlaying(true);
     const handlePause = () => setIsPlaying(false);
 
+    const handleError = async () => {
+      // Don't retry if already retrying or max retries exceeded
+      if (isRetrying || retryCount >= maxRetries || !currentSourceRef.current) {
+        if (!isRetrying && retryCount >= maxRetries) {
+          console.warn(
+            `Audio failed to load after ${maxRetries} retries:`,
+            currentSourceRef.current
+          );
+        }
+        if (options?.onError) {
+          options.onError();
+        }
+        return;
+      }
+
+      console.log(
+        `Audio load failed (attempt ${retryCount + 1}/${maxRetries}), retrying...`,
+        currentSourceRef.current
+      );
+
+      setIsRetrying(true);
+
+      // Wait before retrying
+      await new Promise((resolve) => setTimeout(resolve, retryDelay));
+
+      // Retry by reloading the same source
+      if (audio && currentSourceRef.current) {
+        const wasPlaying = isPlaying;
+        audio.load();
+        setRetryCount((prev) => prev + 1);
+        setIsRetrying(false);
+
+        if (wasPlaying) {
+          const playPromise = audio.play();
+          if (playPromise) {
+            playPromise.catch(() => {
+              setIsPlaying(false);
+            });
+          }
+        }
+      }
+    };
+
     audio.addEventListener("timeupdate", handleTimeUpdate);
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
     audio.addEventListener("ended", handleEnded);
     audio.addEventListener("play", handlePlay);
     audio.addEventListener("pause", handlePause);
+    audio.addEventListener("error", handleError);
 
     // Initialize volume
     audio.volume = volume;
@@ -208,8 +264,9 @@ export function useAudioPlayer(options?: UseAudioPlayerOptions): UseAudioPlayerR
       audio.removeEventListener("ended", handleEnded);
       audio.removeEventListener("play", handlePlay);
       audio.removeEventListener("pause", handlePause);
+      audio.removeEventListener("error", handleError);
     };
-  }, [isSeeking, volume, options]);
+  }, [isSeeking, volume, options, isRetrying, retryCount, maxRetries, retryDelay, isPlaying]);
 
   return {
     audioRef,

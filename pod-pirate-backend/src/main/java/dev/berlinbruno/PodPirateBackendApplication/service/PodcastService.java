@@ -7,6 +7,8 @@ import dev.berlinbruno.PodPirateBackendApplication.types.ImageType;
 import dev.berlinbruno.PodPirateBackendApplication.types.PodcastStatus;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 /**
  * Service interface for podcast operations.
  * Handles user podcast management and public podcast discovery.
@@ -72,5 +74,14 @@ public interface PodcastService {
      */
     Page<PodcastPublicResponse> getPublishedPodcastsByCreator(String id, int page, int size);
 
+    /**
+     * Retrieves all published podcast IDs.
+     */
+    List<String> getAllPublishedPodcastIds();
+
+    /**
+     * Retrieves all creator IDs who have published podcasts.
+     */
+    List<String> getAllCreatorIdsWithPublishedPodcasts();
 
 }

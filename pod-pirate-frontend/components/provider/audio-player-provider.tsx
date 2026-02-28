@@ -11,6 +11,8 @@ import {
 import MiniPlayer from "@/components/audio/MiniPlayer";
 import AudioDrawer from "@/components/audio/AudioDrawer";
 import { useAudioPlayer } from "@/hooks/use-audio-player";
+import { revalidatePathAction } from "@/actions/cache/revalidate";
+import { usePathname } from "next/navigation";
 
 interface Episode {
   episodeId: number;
@@ -46,6 +48,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     return true;
   });
   const prevEpisodeRef = useRef<Episode | null>(null);
+  const pathname = usePathname();
 
   const handleEnded = useCallback(() => {
     if (autoPlayNext) {
@@ -57,7 +60,20 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     }
   }, [autoPlayNext, playlist, currentEpisode]);
 
-  const audioPlayer = useAudioPlayer({ onEnded: handleEnded });
+  const handleAudioError = useCallback(async () => {
+    console.warn("Audio playback failed, attempting to refresh episode data...");
+    try {
+      // Revalidate the current path to refresh episode data with new signed URLs
+      await revalidatePathAction(pathname);
+    } catch (error) {
+      console.error("Failed to revalidate audio on error:", error);
+    }
+  }, [pathname]);
+
+  const audioPlayer = useAudioPlayer({
+    onEnded: handleEnded,
+    onError: handleAudioError,
+  });
   const {
     isPlaying,
     audioRef,

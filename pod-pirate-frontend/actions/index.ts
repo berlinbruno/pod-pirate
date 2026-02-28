@@ -6,6 +6,11 @@ export * from "./auth/registration";
 export * from "./auth/password";
 
 // ============================
+// Cache Management
+// ============================
+export * from "./cache/revalidate";
+
+// ============================
 // User Profile & Content Management
 // ============================
 export * from "./me/profile";

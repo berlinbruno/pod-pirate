@@ -30,7 +30,7 @@ declare module "next-auth" {
       accessToken: string;
       refreshToken: string;
     };
-    error?: "RefreshAccessTokenError";
+    error?: "RefreshAccessTokenError" | "RefreshTokenExpired";
   }
 }
 
@@ -40,14 +40,14 @@ declare module "next-auth/jwt" {
    * This represents the token's structure in your app.
    */
   interface JWT {
-    id: string;
+    id?: string;
     name?: string | null;
-    email: string;
+    email?: string;
     image?: string | null;
-    roles: string[];
-    accessToken: string;
-    refreshToken: string;
-    expiresAt: number;
-    error?: "RefreshAccessTokenError";
+    roles?: string[];
+    accessToken?: string;
+    refreshToken?: string;
+    expiresAt?: number;
+    error?: "RefreshAccessTokenError" | "RefreshTokenExpired";
   }
 }

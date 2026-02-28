@@ -7,8 +7,8 @@ import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Separator } from "../../ui/separator";
 import { StatusBadge } from "../../ui/status-badge";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Image from "next/image";
 import { isValidUrl } from "@/utils/validation/urlValidator";
+import RefreshableImage from "@/components/image/RefreshableImage";
 
 interface AdminCreatorCardProps {
   user: AdminUserDetailResponse;
@@ -29,7 +29,7 @@ export default function AdminCreatorCard({ user }: AdminCreatorCardProps) {
         <div className="size-48">
           <AspectRatio ratio={1}>
             {hasImage ? (
-              <Image
+              <RefreshableImage
                 src={user?.profileUrl || ""}
                 alt={`${user.username}'s profile picture`}
                 className="rounded-full object-cover transition-all duration-200"

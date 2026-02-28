@@ -2,10 +2,10 @@ import { Calendar, Mic2 } from "lucide-react";
 import { CreatorPublicResponse } from "@/types/api";
 import { Card, CardTitle, CardDescription } from "../../ui/card";
 import { Separator } from "../../ui/separator";
-import Image from "next/image";
 import { formatDate, getInitials } from "@/utils/format";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { isValidUrl } from "@/utils/validation/urlValidator";
+import RefreshableImage from "@/components/image/RefreshableImage";
 
 interface CreatorCardProps {
   creator: CreatorPublicResponse;
@@ -24,7 +24,7 @@ export default function CreatorCard({ creator }: CreatorCardProps) {
         <div className="size-48">
           <AspectRatio ratio={1}>
             {hasImage ? (
-              <Image
+              <RefreshableImage
                 src={creator?.profileUrl || ""}
                 alt={`${creator.creatorName}'s profile picture`}
                 className="rounded-full object-cover transition-all duration-200"
